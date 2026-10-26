@@ -215,11 +215,20 @@
 #define A5141MIPI_SENSOR_ID                     0x4800
 #define SP0A19_YUV_SENSOR_ID				0xA6
 #define A5142MIPI_SENSOR_ID                     0x4800
+//niyangadd
+#define GC2235_SENSOR_ID			0x2235
+/*add by zym*/
+#define GC0329_SENSOR_ID                        0x00c0
+
 #define GC0313MIPI_YUV_SENSOR_ID                0xD0
 #define IMX135_SENSOR_ID                        0x0135  
 #define OV16825MIPI_SENSOR_ID                       0x0168
 
 #define GC2035_SENSOR_ID			0x2035
+#define GC2235MIPI_SENSOR_ID			0x2235
+//wangliangfeng 20140113 add for shengtai module
+#define GC2235MIPI_ST_SENSOR_ID			0x2236
+
 /* CAMERA DRIVER NAME */
 #define CAMERA_HW_DEVNAME            "kd_camera_hw"
 
@@ -287,6 +296,12 @@
 #define SENSOR_DRVNAME_OV9740_MIPI_YUV     "ov9740mipiyuv"
 #define SENSOR_DRVNAME_S5K3H2YX_MIPI_RAW   "s5k3h2yxmipiraw"
 #define SENSOR_DRVNAME_SP0A19_YUV   "sp0a19yuv"
+//niyangadd
+#define SENSOR_DRVNAME_GC2235_RAW   "gc2235raw"
+#define SENSOR_DRVNAME_GC0329_YUV   	"gc0329yuv"
+#define SENSOR_DRVNAME_GC2235_MIPI_RAW   "gc2235mipiraw"
+//wangliangfeng 201400113 add for shengtai module name
+#define SENSOR_DRVNAME_GC2235_ST_MIPI_RAW   "gc2236mipiraw"
 #define SENSOR_DRVNAME_IMX135_MIPI_RAW   "imx135mipiraw"
 #define SENSOR_DRVNAME_GC0313MIPI_YUV      "gc0313mipiyuv"
 #define SENSOR_DRVNAME_OV16825_MIPI_RAW   "OV16825mipiraw"
@@ -300,5 +315,3 @@ void KD_IMGSENSOR_PROFILE(char *tag);
 #define mDELAY(ms)     mdelay(ms) 
 #define uDELAY(us)       udelay(us) 
 #endif //_KD_IMGSENSOR_H
-
-

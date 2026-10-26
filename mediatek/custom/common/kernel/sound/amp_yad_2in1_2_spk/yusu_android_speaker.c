@@ -61,9 +61,9 @@
 #include <mach/mt_gpio.h>
 #include <mach/mt_typedefs.h>
 
-//#define ENABLE_2_IN_1_SPK
+#define ENABLE_2_IN_1_SPK
 #define GPIO_SPEAKER_EN_PIN     GPIO12
-#define GPIO_SPEAKER_RECEIVER_SWITCH_PIN    GPIO15
+#define GPIO_SPEAKER_RECEIVER_SWITCH_PIN    GPIO16
 /*****************************************************************************
 *                C O M P I L E R      F L A G S
 ******************************************************************************
@@ -99,19 +99,19 @@ static bool grec_on=false;
 ******************************************************************************
 */
 extern void Yusu_Sound_AMP_Switch(BOOL enable);
+extern int accdet_get_cable_type(void);
 
 bool Speaker_Init(void) 
 {
    PRINTK("+Speaker_Init Success");
-   mt_set_gpio_mode(GPIO_SPEAKER_EN_PIN,GPIO_MODE_00);  // gpio mode
-   mt_set_gpio_pull_enable(GPIO_SPEAKER_EN_PIN,GPIO_PULL_DISABLE);
-   //add by zym 
-   mt_set_gpio_dir(GPIO_SPEAKER_EN_PIN,GPIO_DIR_IN); // output
-   mt_set_gpio_out(GPIO_SPEAKER_EN_PIN,GPIO_OUT_ZERO); // high
+   mt_set_gpio_mode(GPIO_SPEAKER_EN_PIN,GPIO_MODE_00); 
+   mt_set_gpio_pull_enable(GPIO_SPEAKER_EN_PIN,GPIO_PULL_ENABLE);
+   mt_set_gpio_dir(GPIO_SPEAKER_EN_PIN,GPIO_DIR_OUT);
+   mt_set_gpio_out(GPIO_SPEAKER_EN_PIN,GPIO_OUT_ZERO); 
 
 #if defined(ENABLE_2_IN_1_SPK)
    PRINTK("2in1 speaker.\n");
-   mt_set_gpio_mode(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_MODE_00);  // gpio mode
+   mt_set_gpio_mode(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_MODE_00);  
    mt_set_gpio_pull_enable(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_PULL_ENABLE);
 #endif
 
@@ -147,13 +147,20 @@ void Sound_SpeakerR_SetVolLevel(int level)
 void Sound_Speaker_Turnon(int channel)
 {
     PRINTK("Sound_Speaker_Turnon channel = %d\n",channel);
-	if(gsk_on)
-		return;
-    mt_set_gpio_dir(GPIO_SPEAKER_EN_PIN,GPIO_DIR_IN); // output
-    mt_set_gpio_out(GPIO_SPEAKER_EN_PIN,GPIO_OUT_ZERO); // high
+    if(gsk_on)
+        return;
+        
+    // Abort if headset is plugged in (0 = NO_DEVICE)
+    if (accdet_get_cable_type() != 0) {
+        PRINTK("Headset is active! Blocking speaker amp turn-on.\n");
+        return;
+    }
 
-    mt_set_gpio_dir(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_DIR_OUT); // output
-    mt_set_gpio_out(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_OUT_ZERO); // high
+    mt_set_gpio_dir(GPIO_SPEAKER_EN_PIN,GPIO_DIR_OUT);
+    mt_set_gpio_out(GPIO_SPEAKER_EN_PIN,GPIO_OUT_ONE);
+
+    mt_set_gpio_dir(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_DIR_OUT);
+    mt_set_gpio_out(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_OUT_ZERO);
     
     msleep(SPK_WARM_UP_TIME);
     gsk_on = true;
@@ -181,7 +188,17 @@ void Sound_Speaker_SetVolLevel(int level)
 
 void Sound_Headset_Turnon(void)
 {
+    PRINTK("Sound_Headset_Turnon triggered\n");
+    // Force the speaker off immediately when the headset routes
+    if(gsk_on) {
+        mt_set_gpio_dir(GPIO_SPEAKER_EN_PIN,GPIO_DIR_OUT); 
+        mt_set_gpio_out(GPIO_SPEAKER_EN_PIN,GPIO_OUT_ZERO); 
 
+        mt_set_gpio_dir(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_DIR_OUT); 
+        mt_set_gpio_out(GPIO_SPEAKER_RECEIVER_SWITCH_PIN,GPIO_OUT_ONE); 
+
+        gsk_on = false;
+    }
 }
 
 void Sound_Headset_Turnoff(void)

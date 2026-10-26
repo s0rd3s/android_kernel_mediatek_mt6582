@@ -826,5 +826,3 @@ typedef struct {
 
 
 #endif //_KD_IMGSENSOR_DATA_H
-
-

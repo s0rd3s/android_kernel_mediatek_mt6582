@@ -1,17 +1,15 @@
 ###                                          Kernel Tree for Lenovo A3300 (4.4.2 , 3.4.67)
 
-![a3300](https://www.jakartanotebook.com/upload/images/Lenovo-IdeaTab-A3300-Android-Tablet-PC---Black-2.jpg)
+![a3300](https://technolavka.by/image/cache/catalog/fotki/planshet/lenovo/a3300/lenovoideataba33001-1000x1000.png)
 
 * Working now:
 1) KD079D1_MIPI4LVDS(rotated 90 degrees) LCM and NT51021B_MIPI_DSI(not tested)
 2) Touchscreen
 3) Sim Card
 6) Brightness
-
-* Not working/Not tested:
-1) Cameras
-2) Headset
-4) Charging driver
-5) Sound from the main speakers
-8) Accelerometer
-7) OTG
+7) Cameras
+8) Headset
+9) Charging driver
+10) Sound from the main speakers
+11) Accelerometer
+12) OTG (not tested)
