@@ -2931,14 +2931,12 @@ static int unix_dgram_sendmsg(struct kiocb *kiocb, struct socket *sock,
 	long timeo;
 	struct scm_cookie tmp_scm;
 	int max_level;
-<<<<<<< HEAD
-#ifdef CONFIG_UNIX_SOCKET_TRACK_TOOL	
+	int sk_locked;
+#ifdef CONFIG_UNIX_SOCKET_TRACK_TOOL
     //////////////add code begin///////////////////
     unix_sock_track_blc* unix_sock_track_tmp = NULL;
     //////////////add code end/////////////////// 
-=======
-	int sk_locked;
->>>>>>> unix: avoid use-after-free in ep_remove_wait_queue
+#endif
 
 //    unix_test_time_log(sock, 2);
     //////////////add code begin///////////////////  

@@ -1068,22 +1068,14 @@ static int sched_rt_runtime_exceeded(struct rt_rq *rt_rq)
 
 			rt_rq->rt_throttled = 1;
 
-<<<<<<< HEAD
 		//	if (!once) {
 		//		once = true;
-				printk_sched("sched: RT throttling activated cpu=%d\n",
+				printk_deferred("sched: RT throttling activated cpu=%d\n",
 					cpu);
 		//	}
 #ifdef CONFIG_MT_RT_SCHED_CRIT
 			trace_sched_rt_crit(cpu, rt_rq->rt_throttled);
 #endif
-
-=======
-			if (!once) {
-				once = true;
-				printk_deferred("sched: RT throttling activated\n");
-			}
->>>>>>> printk: rename printk_sched to printk_deferred
 		} else {
 			/*
 			 * In case we did anyway, make it go away,
