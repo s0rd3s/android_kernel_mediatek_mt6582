@@ -15,8 +15,6 @@
 //huangshiguo
 //#define HQ_35MM_TI_ENABLE
 #define HQ_35MM_EARPHONE_TEST //121213 huangshiguo temp test
-#define GPIO_HEADSET_SWITCH1 GPIO116
-#define GPIO_HEADSET_SWITCH2 GPIO117
 
 
 #define SW_WORK_AROUND_ACCDET_REMOTE_BUTTON_ISSUE
@@ -173,6 +171,7 @@ extern S32 pwrap_write( U32  adr, U32  wdata );
 extern struct headset_mode_settings* get_cust_headset_settings(void);
 extern struct headset_key_custom* get_headset_key_custom_setting(void);
 extern int PMIC_IMM_GetOneChannelValue(int dwChannel, int deCount, int trimd);
+extern int IMM_GetOneChannelValue(int dwChannel, int data[4], int* rawdata);
 extern struct file_operations *accdet_get_fops(void);//from accdet_drv.c
 extern struct platform_driver accdet_driver_func(void);//from accdet_drv.c
 
@@ -374,159 +373,155 @@ static void disable_micbias(unsigned long a)
 }
 static void disable_micbias_callback(struct work_struct *work)
 {
-	
-        if(cable_type == HEADSET_NO_MIC) {
-			#ifdef ACCDET_PIN_RECOGNIZATION
-			   show_icon_delay = 0;
-			   cable_pin_recognition = 0;
-			   ACCDET_DEBUG("[Accdet] cable_pin_recognition = %d\n", cable_pin_recognition);
-				pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
-    			pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_thresh);
-			#endif
-                // setting pwm idle;
-            #ifdef ACCDET_MULTI_KEY_FEATURE  
-   				pmic_pwrap_write(ACCDET_STATE_SWCTRL, pmic_pwrap_read(ACCDET_STATE_SWCTRL)&~ACCDET_SWCTRL_IDLE_EN);
-		    #endif 
-			#ifdef ACCDET_PIN_SWAP
-		    	//accdet_FSA8049_disable();  //disable GPIO209 for PIN swap 
-		    	//ACCDET_DEBUG("[Accdet] FSA8049 disable!\n");
-			#endif
-                disable_accdet();
-                ACCDET_DEBUG("[Accdet] more than 5s MICBIAS : Disabled\n");
-        }
-	#ifdef ACCDET_PIN_RECOGNIZATION
-		else if(cable_type == HEADSET_MIC) {       
-			pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
-    		pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_thresh);
-			ACCDET_DEBUG("[Accdet]pin recog after 5s recover micbias polling!\n");
-		}
-	#endif
+    if(cable_type == HEADSET_NO_MIC) {
+        #ifdef ACCDET_PIN_RECOGNIZATION
+           show_icon_delay = 0;
+           cable_pin_recognition = 0;
+           ACCDET_DEBUG("[Accdet] cable_pin_recognition = %d\n", cable_pin_recognition);
+           pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
+           pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_thresh);
+        #endif
+        #ifdef ACCDET_MULTI_KEY_FEATURE  
+            pmic_pwrap_write(ACCDET_STATE_SWCTRL, pmic_pwrap_read(ACCDET_STATE_SWCTRL)&~ACCDET_SWCTRL_IDLE_EN);
+        #endif 
+        #ifdef ACCDET_PIN_SWAP
+            //accdet_FSA8049_disable(); 
+        #endif
+            disable_accdet();
+            ACCDET_DEBUG("[Accdet] more than 5s MICBIAS : Disabled\n");
+    }
+    #ifdef ACCDET_PIN_RECOGNIZATION
+    else if(cable_type == HEADSET_MIC) {       
+        pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
+        pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_thresh);
+        ACCDET_DEBUG("[Accdet]pin recog after 5s recover micbias polling!\n");
+    }
+    #endif
 }
-
-#if defined(HQ_35MM_EARPHONE_TEST)//huangshiguo test 3.5mm earphone
-extern int IMM_GetOneChannelValue(int dwChannel, int data[4], int* rawdata);
-#endif
-
 static void accdet_eint_work_callback(struct work_struct *work)
 {
    //KE under fastly plug in and plug out
     mt_eint_mask(CUST_EINT_ACCDET_NUM);
    
     if (cur_eint_state == EINT_PIN_PLUG_IN) {
-		ACCDET_DEBUG("[Accdet]EINT func :plug-in\n");
-		mutex_lock(&accdet_eint_irq_sync_mutex);
-		eint_accdet_sync_flag = 1;
-		mutex_unlock(&accdet_eint_irq_sync_mutex);
-		#ifdef ACCDET_LOW_POWER
-		wake_lock_timeout(&accdet_timer_lock, 7*HZ);
-		#endif
-		#ifdef ACCDET_28V_MODE
-		pmic_pwrap_write(ACCDET_RSV, ACCDET_2V8_MODE_OFF);
-		ACCDET_DEBUG("ACCDET use in 2.8V mode!! \n");
-  		#endif
-		#ifdef ACCDET_PIN_SWAP
-			pmic_pwrap_write(0x0400, pmic_pwrap_read(0x0400)|(1<<14)); 
-			msleep(800);
-		    accdet_FSA8049_enable();  //enable GPIO209 for PIN swap 
-		    ACCDET_DEBUG("[Accdet] FSA8049 enable!\n");
-			msleep(250); //PIN swap need ms 
-		#endif
-		
-		//huangshiguo test 3.5mm earphone
+        ACCDET_DEBUG("[Accdet]EINT func :plug-in\n");
+        mutex_lock(&accdet_eint_irq_sync_mutex);
+        eint_accdet_sync_flag = 1;
+        mutex_unlock(&accdet_eint_irq_sync_mutex);
+        #ifdef ACCDET_LOW_POWER
+        wake_lock_timeout(&accdet_timer_lock, 7*HZ);
+        #endif
+        #ifdef ACCDET_28V_MODE
+        pmic_pwrap_write(ACCDET_RSV, ACCDET_2V8_MODE_OFF);
+        ACCDET_DEBUG("ACCDET use in 2.8V mode!! \n");
+        #endif
+        #ifdef ACCDET_PIN_SWAP
+            pmic_pwrap_write(0x0400, pmic_pwrap_read(0x0400)|(1<<14)); 
+            msleep(800);
+            accdet_FSA8049_enable();  //enable GPIO209 for PIN swap 
+            ACCDET_DEBUG("[Accdet] FSA8049 enable!\n");
+            msleep(250); //PIN swap need ms 
+        #endif
+        
+        //huangshiguo test 3.5mm earphone
         #if defined(HQ_35MM_EARPHONE_TEST)
-            mt_set_gpio_out(GPIO_HEADSET_SWITCH1,GPIO_OUT_ONE);
-            mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
-        #endif
-		
-			accdet_init();// do set pwm_idle on in accdet_init
-		
-		#ifdef ACCDET_PIN_RECOGNIZATION
-		  show_icon_delay = 1;
-		//micbias always on during detected PIN recognition
-		  pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
-    	  pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_width);
-		  ACCDET_DEBUG("[Accdet]pin recog start!  micbias always on!\n");
-		#endif
-		//set PWM IDLE  on
-		#ifdef ACCDET_MULTI_KEY_FEATURE
-			pmic_pwrap_write(ACCDET_STATE_SWCTRL, (pmic_pwrap_read(ACCDET_STATE_SWCTRL)|ACCDET_SWCTRL_IDLE_EN));
-		#endif  
-		//enable ACCDET unit
-			enable_accdet(ACCDET_SWCTRL_EN); 
+            mt_set_gpio_mode(GPIO_HEADSET_SWITCH1, 0); // 0 = GPIO mode
+            mt_set_gpio_dir(GPIO_HEADSET_SWITCH1, 1);  // 1 = Output
+            mt_set_gpio_mode(GPIO_HEADSET_SWITCH2, 0); 
+            mt_set_gpio_dir(GPIO_HEADSET_SWITCH2, 1); 
 
-		//huangshiguo test 3.5mm earphone
+            mt_set_gpio_out(GPIO_HEADSET_SWITCH1, 1);
+            mt_set_gpio_out(GPIO_HEADSET_SWITCH2, 0);
+        #endif
+        
+            accdet_init();// do set pwm_idle on in accdet_init
+        
+        #ifdef ACCDET_PIN_RECOGNIZATION
+          show_icon_delay = 1;
+        //micbias always on during detected PIN recognition
+          pmic_pwrap_write(ACCDET_PWM_WIDTH, cust_headset_settings->pwm_width);
+          pmic_pwrap_write(ACCDET_PWM_THRESH, cust_headset_settings->pwm_width);
+          ACCDET_DEBUG("[Accdet]pin recog start!  micbias always on!\n");
+        #endif
+        //set PWM IDLE  on
+        #ifdef ACCDET_MULTI_KEY_FEATURE
+            pmic_pwrap_write(ACCDET_STATE_SWCTRL, (pmic_pwrap_read(ACCDET_STATE_SWCTRL)|ACCDET_SWCTRL_IDLE_EN));
+        #endif  
+        //enable ACCDET unit
+            enable_accdet(ACCDET_SWCTRL_EN); 
+
+        //huangshiguo test 3.5mm earphone
         #if defined(HQ_35MM_EARPHONE_TEST)
-	        int accdet_adc=0;
-	        int data[4];
-	        msleep(80);//80
-	        accdet_adc = IMM_GetOneChannelValue(0,data,NULL);
-	        accdet_adc = data[0]*1000+data[1]*10;
-	        printk("[Accdet_zym] accdet_eint_work_callback accdet_adc=%d(%d.%d)\n",accdet_adc,data[0],data[1]);
-	        if(accdet_adc < 500)//<500
-	        {
-	            printk("[Accdet_zym] apple headset!!!\n");
-	            mt_set_gpio_out(GPIO_HEADSET_SWITCH1,GPIO_OUT_ZERO);
-	            mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ONE);
-	        }
-	        else
-	        {
-	            printk("[Accdet_zym] huaqin headset!!!\n");
-	            mt_set_gpio_out(GPIO_HEADSET_SWITCH1,GPIO_OUT_ONE);
-	            mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
-	        }
+            int accdet_adc=0;
+            int data[4];
+            msleep(80);//80
+            accdet_adc = IMM_GetOneChannelValue(0,data,NULL);
+            accdet_adc = data[0]*1000+data[1]*10;
+            printk("[Accdet_zym] accdet_eint_work_callback accdet_adc=%d(%d.%d)\n",accdet_adc,data[0],data[1]);
+            
+            if(accdet_adc < 1000)
+            {
+                printk("[Accdet_zym] apple headset!!!\n");
+                mt_set_gpio_out(GPIO_HEADSET_SWITCH1, 0);
+                mt_set_gpio_out(GPIO_HEADSET_SWITCH2, 1);
+            }
+            else
+            {
+                printk("[Accdet_zym] huaqin headset!!!\n");
+                mt_set_gpio_out(GPIO_HEADSET_SWITCH1, 1);
+                mt_set_gpio_out(GPIO_HEADSET_SWITCH2, 0);
+            }
         #endif
 
-		//add by zym for ti ic
-        #if defined(HQ_35MM_TI_ENABLE)
-            msleep(500);
-            mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ONE);
-            msleep(250);
-        #endif
+        // // MANUAL BYPASS: Force evaluation and Android switch state update
+        // accdet_status = MIC_BIAS; 
+        // cable_type = HEADSET_NO_MIC; // Default to NO_MIC safely, check_cable_type will refine if needed
+        // queue_work(accdet_workqueue, &accdet_work); 
+
     } else {
 //EINT_PIN_PLUG_OUT
 //Disable ACCDET
-		ACCDET_DEBUG("[Accdet]EINT func :plug-out\n");
-		mutex_lock(&accdet_eint_irq_sync_mutex);
-		eint_accdet_sync_flag = 0;
-		mutex_unlock(&accdet_eint_irq_sync_mutex);
+        ACCDET_DEBUG("[Accdet]EINT func :plug-out\n");
+        mutex_lock(&accdet_eint_irq_sync_mutex);
+        eint_accdet_sync_flag = 0;
+        mutex_unlock(&accdet_eint_irq_sync_mutex);
 
-		#ifdef ACCDET_LOW_POWER
-			del_timer_sync(&micbias_timer);
-		#endif
-		#ifdef ACCDET_PIN_RECOGNIZATION
-		  show_icon_delay = 0;
-		  cable_pin_recognition = 0;
-		#endif
-		#ifdef ACCDET_PIN_SWAP
-			pmic_pwrap_write(0x0400, pmic_pwrap_read(0x0400)&~(1<<14)); 
-		    accdet_FSA8049_disable();  //disable GPIO209 for PIN swap 
-		    ACCDET_DEBUG("[Accdet] FSA8049 disable!\n");
-		#endif
-			accdet_auxadc_switch(0);
-			disable_accdet();			   
-			headset_plug_out();
-			
-			//huangshiguo test 3.5mm earphone
+        #ifdef ACCDET_LOW_POWER
+            del_timer_sync(&micbias_timer);
+        #endif
+        #ifdef ACCDET_PIN_RECOGNIZATION
+          show_icon_delay = 0;
+          cable_pin_recognition = 0;
+        #endif
+        #ifdef ACCDET_PIN_SWAP
+            pmic_pwrap_write(0x0400, pmic_pwrap_read(0x0400)&~(1<<14)); 
+            accdet_FSA8049_disable();  //disable GPIO209 for PIN swap 
+            ACCDET_DEBUG("[Accdet] FSA8049 disable!\n");
+        #endif
+            accdet_auxadc_switch(0);
+            disable_accdet();              
+            headset_plug_out();
+            
+            //huangshiguo test 3.5mm earphone
             #if defined(HQ_35MM_EARPHONE_TEST)
-			   mt_set_gpio_out(GPIO_HEADSET_SWITCH1,GPIO_OUT_ONE);
-			   mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
-	       #endif
-            //add by zym for ti ic
-            #if defined(HQ_35MM_TI_ENABLE)
-                mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
+               mt_set_gpio_mode(GPIO_HEADSET_SWITCH1, 0);
+               mt_set_gpio_dir(GPIO_HEADSET_SWITCH1, 1);
+               mt_set_gpio_mode(GPIO_HEADSET_SWITCH2, 0);
+               mt_set_gpio_dir(GPIO_HEADSET_SWITCH2, 1);
+
+               mt_set_gpio_out(GPIO_HEADSET_SWITCH1, 1);
+               mt_set_gpio_out(GPIO_HEADSET_SWITCH2, 0);
+           #endif
+            
+            #ifdef ACCDET_28V_MODE
+            pmic_pwrap_write(ACCDET_RSV, ACCDET_1V9_MODE_OFF);
+            ACCDET_DEBUG("ACCDET use in 1.9V mode!! \n");
             #endif
-			
-			#ifdef ACCDET_28V_MODE
-			pmic_pwrap_write(ACCDET_RSV, ACCDET_1V9_MODE_OFF);
-			ACCDET_DEBUG("ACCDET use in 1.9V mode!! \n");
-  			#endif
-		  
+          
     }
     //unmask EINT
-    //msleep(500);
     mt_eint_unmask(CUST_EINT_ACCDET_NUM);
     ACCDET_DEBUG("[Accdet]eint unmask  !!!!!!\n");
-    
 }
 
 
@@ -546,7 +541,7 @@ static void accdet_eint_func(void)
 		}
 
 #ifdef ACCDET_SHORT_PLUGOUT_DEBOUNCE
-        mt_eint_set_hw_debounce(CUST_EINT_ACCDET_NUM, CUST_EINT_ACCDET_DEBOUNCE_CN);
+        mt_eint_set_hw_debounce(CUST_EINT_ACCDET_NUM, 100);
 #endif
 
 		/* update the eint status */
@@ -602,7 +597,7 @@ static inline int accdet_setup_eint(void)
     mt_set_gpio_dir(GPIO_ACCDET_EINT_PIN, GPIO_DIR_IN);
     mt_set_gpio_pull_enable(GPIO_ACCDET_EINT_PIN, GPIO_PULL_DISABLE); //To disable GPIO PULL.
 
-	mt_eint_set_hw_debounce(CUST_EINT_ACCDET_NUM, CUST_EINT_ACCDET_DEBOUNCE_CN);
+	mt_eint_set_hw_debounce(CUST_EINT_ACCDET_NUM, 100);
 	mt_eint_registration(CUST_EINT_ACCDET_NUM, CUST_EINT_ACCDET_TYPE, accdet_eint_func, 0);
 	ACCDET_DEBUG("[Accdet]accdet set EINT finished, accdet_eint_num=%d, accdet_eint_debounce_en=%d, accdet_eint_polarity=%d\n", CUST_EINT_ACCDET_NUM, CUST_EINT_ACCDET_DEBOUNCE_EN, CUST_EINT_ACCDET_TYPE);
 	
@@ -1211,9 +1206,9 @@ static inline void check_cable_type(void)
 			        #endif
 
 					//add by zym for ti ic
-		            #if defined(HQ_35MM_TI_ENABLE)
-		                mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
-		            #endif
+		            // #if defined(HQ_35MM_TI_ENABLE)
+		            //     mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
+		            // #endif
 				}else {
 					ACCDET_DEBUG("[Accdet] Headset has plugged out\n");
 			 	}
@@ -1744,12 +1739,12 @@ int mt_accdet_probe(void)
 	mt_set_gpio_out(GPIO_HEADSET_SWITCH1,GPIO_OUT_ONE);
 #endif
 
-#if defined(HQ_35MM_TI_ENABLE)
-    mt_set_gpio_mode(GPIO_HEADSET_SWITCH2,GPIO_MODE_00);  // gpio mode
-	mt_set_gpio_pull_enable(GPIO_HEADSET_SWITCH2,GPIO_PULL_ENABLE);
-	mt_set_gpio_dir(GPIO_HEADSET_SWITCH2,GPIO_DIR_OUT);
-	mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
-#endif
+// #if defined(HQ_35MM_TI_ENABLE)
+//     mt_set_gpio_mode(GPIO_HEADSET_SWITCH2,GPIO_MODE_00);  // gpio mode
+// 	mt_set_gpio_pull_enable(GPIO_HEADSET_SWITCH2,GPIO_PULL_ENABLE);
+// 	mt_set_gpio_dir(GPIO_HEADSET_SWITCH2,GPIO_DIR_OUT);
+// 	mt_set_gpio_out(GPIO_HEADSET_SWITCH2,GPIO_OUT_ZERO);
+// #endif
 
 #ifdef SW_WORK_AROUND_ACCDET_REMOTE_BUTTON_ISSUE
      init_waitqueue_head(&send_event_wq);

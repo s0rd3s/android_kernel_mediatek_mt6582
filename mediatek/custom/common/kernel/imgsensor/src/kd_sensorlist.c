@@ -2334,8 +2334,3 @@ module_exit(CAMERA_HW_i2C_exit);
 MODULE_DESCRIPTION("CAMERA_HW driver");
 MODULE_AUTHOR("Jackie Su <jackie.su@Mediatek.com>");
 MODULE_LICENSE("GPL");
-
-
-
-
-
