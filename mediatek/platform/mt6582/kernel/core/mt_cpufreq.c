@@ -1622,121 +1622,121 @@ void mt_cpufreq_return_default_DVS_by_ptpod(void)
     if((g_cpufreq_get_ptp_level >= 0) && (g_cpufreq_get_ptp_level <= 4))
     {
         #if defined(HQA_LV_1_09V)
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x3D, PMIC_WRAP_DVFS_WDATA2); // 1.09V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x39, PMIC_WRAP_DVFS_WDATA2); // 1.09V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x3D; // 1.09V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x39; // 1.09V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
         #elif defined(HQA_NV_1_15V)
-            mt_cpufreq_reg_write(0x5A, PMIC_WRAP_DVFS_WDATA0); // 1.26V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x56, PMIC_WRAP_DVFS_WDATA0); // 1.26V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x5A; // 1.26V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x56; // 1.26V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
         #elif defined(HQA_HV_1_21V)
-            mt_cpufreq_reg_write(0x64, PMIC_WRAP_DVFS_WDATA0); // 1.32V VPROC
-            mt_cpufreq_reg_write(0x52, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x60, PMIC_WRAP_DVFS_WDATA0); // 1.32V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x64; // 1.32V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x52; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x60; // 1.32V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4E; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 		#else /* Normal case */
 
             #ifdef CPUFREQ_SDIO_TRANSFER
 
-            mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (1.1875v)
+            mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
             #endif
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC (1.1875v)
+            mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
             #endif
-            mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
             #else
 
-            mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+            mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
             #endif
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+            mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
             #endif
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
             #endif
 
@@ -1746,61 +1746,61 @@ void mt_cpufreq_return_default_DVS_by_ptpod(void)
     {
         #ifdef CPUFREQ_SDIO_TRANSFER
 
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA1); // 1.185V VPROC (1.1875v)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA1); // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x4E; // 1.185V VPROC (1.1875v)
+        mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4A; // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[2] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
         #else
 
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x44; // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[2] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
         #endif
     }
@@ -1808,61 +1808,61 @@ void mt_cpufreq_return_default_DVS_by_ptpod(void)
     {
         #ifdef CPUFREQ_SDIO_TRANSFER
 
-        mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (1.1875v)
+        mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC (1.1875v)
+        mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
         #else
 
-        mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
         #endif
     }
@@ -2373,185 +2373,185 @@ static int mt_cpufreq_pdrv_probe(struct platform_device *pdev)
     if((g_cpufreq_get_ptp_level >= 0) && (g_cpufreq_get_ptp_level <= 4))
     {
         #if defined(HQA_LV_1_09V)
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x3D, PMIC_WRAP_DVFS_WDATA2); // 1.09V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x39, PMIC_WRAP_DVFS_WDATA2); // 1.09V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x3D; // 1.09V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x39; // 1.09V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
         #elif defined(HQA_NV_1_15V)
-            mt_cpufreq_reg_write(0x5A, PMIC_WRAP_DVFS_WDATA0); // 1.26V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x56, PMIC_WRAP_DVFS_WDATA0); // 1.26V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x5A; // 1.26V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x56; // 1.26V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
         #elif defined(HQA_HV_1_21V)
-            mt_cpufreq_reg_write(0x64, PMIC_WRAP_DVFS_WDATA0); // 1.32V VPROC
-            mt_cpufreq_reg_write(0x52, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x60, PMIC_WRAP_DVFS_WDATA0); // 1.32V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x64; // 1.32V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x52; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[0] = 0x60; // 1.32V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4E; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
         #else /* Normal case */
 
             #ifdef CPUFREQ_SDIO_TRANSFER
 
-            mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (1.1875v)
+            mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
             #endif
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC (1.1875v)
+            mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
             #endif
-            mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
             #else
 
-            mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-            mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+            mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
             #endif
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
             /* For PTP-OD */
-            mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-            mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-            mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+            mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
             #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-            mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
             #else
-            mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
+            mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
             #endif
-            mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-            mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-            mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+            mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+            mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+            mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
             #endif
 
-            #endif
+        #endif
     }
     else if((g_cpufreq_get_ptp_level >= 5) && (g_cpufreq_get_ptp_level <= 6))
     {
         #ifdef CPUFREQ_SDIO_TRANSFER
 
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA1); // 1.185V VPROC (1.1875v)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA1); // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4A; // 1.185V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[2] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
         #else
 
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA0); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA1); // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA2); // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x44; // 1.15V VPROC (-25mV)
         #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[2] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x34; // 1.05V VPROC (-25mV)
         #else
-        mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
         #endif
-        mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
         #endif
     }
@@ -2559,61 +2559,61 @@ static int mt_cpufreq_pdrv_probe(struct platform_device *pdev)
     {
         #ifdef CPUFREQ_SDIO_TRANSFER
 
-        mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (1.1875v)
+        mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA2); // 1.185V VPROC (-25mV)
 #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
 #else
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA3); // 1.185V VPROC (-25mV)
 #endif
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x4E, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA4); // 1.185V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA5); // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x4A, PMIC_WRAP_DVFS_WDATA7); // 1.185V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[2] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[2] = 0x4A; // 1.185V VPROC (-25mV)
 #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
 #else
-        mt_cpufreq_pmic_volt[3] = 0x4E; // 1.185V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x4A; // 1.185V VPROC (-25mV)
 #endif
-        mt_cpufreq_pmic_volt[4] = 0x4E; // 1.185V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x4E; // 1.185V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x4E; // 1.185V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[4] = 0x4A; // 1.185V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x4A; // 1.185V VPROC, for spm control in deep idle (-25mV)
 
         #else
 
-        mt_cpufreq_reg_write(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC
-        mt_cpufreq_reg_write(0x50, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x54, PMIC_WRAP_DVFS_WDATA0); // 1.25V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x4C, PMIC_WRAP_DVFS_WDATA1); // 1.20V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA2); // 1.15V VPROC (-25mV)
 #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA3); // 1.05V VPROC (-25mV)
 #else
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA3); // 1.15V VPROC (-25mV)
 #endif
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x38, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_reg_write(0x48, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA4); // 1.15V VPROC (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA5); // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x34, PMIC_WRAP_DVFS_WDATA6); // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_reg_write(0x44, PMIC_WRAP_DVFS_WDATA7); // 1.15V VPROC, for spm control in deep idle (-25mV)
 		
         /* For PTP-OD */
-        mt_cpufreq_pmic_volt[0] = 0x58; // 1.25V VPROC
-        mt_cpufreq_pmic_volt[1] = 0x50; // 1.20V VPROC
-        mt_cpufreq_pmic_volt[2] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[0] = 0x54; // 1.25V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[1] = 0x4C; // 1.20V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[2] = 0x44; // 1.15V VPROC (-25mV)
 #ifdef MT_DVFS_LOW_VOLTAGE_SUPPORT
-        mt_cpufreq_pmic_volt[3] = 0x38; // 1.05V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x34; // 1.05V VPROC (-25mV)
 #else
-        mt_cpufreq_pmic_volt[3] = 0x48; // 1.15V VPROC
+        mt_cpufreq_pmic_volt[3] = 0x44; // 1.15V VPROC (-25mV)
 #endif
-        mt_cpufreq_pmic_volt[4] = 0x48; // 1.15V VPROC
-        mt_cpufreq_pmic_volt[5] = 0x48; // 1.15V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[6] = 0x38; // 1.05V VPROC, for spm control in deep idle
-        mt_cpufreq_pmic_volt[7] = 0x48; // 1.15V VPROC, for spm control in deep idle
+        mt_cpufreq_pmic_volt[4] = 0x44; // 1.15V VPROC (-25mV)
+        mt_cpufreq_pmic_volt[5] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[6] = 0x34; // 1.05V VPROC, for spm control in deep idle (-25mV)
+        mt_cpufreq_pmic_volt[7] = 0x44; // 1.15V VPROC, for spm control in deep idle (-25mV)
 
         #endif
     }
