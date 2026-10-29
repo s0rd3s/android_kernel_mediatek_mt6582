@@ -211,7 +211,7 @@ on fs_property:ro.persist.partition.support=yes
     write /proc/bootprof "INIT:PERSISIT:Mount_START"
     exec /sbin/e2fsck -pfD /emmc@persist
     exec /sbin/tune2fs -O has_journal /emmc@persist
-    mount ext4 /emmc@persist /persist noatime nosuid nodev wait commit=1,nodelalloc,noauto_da_alloc
+    mount ext4 /emmc@persist /persist noatime nosuid nodev wait commit=15,nodelalloc,noauto_da_alloc
     write /proc/bootprof "INIT:PERSISIT:Mount_END"
 
 on post-fs
@@ -575,10 +575,11 @@ on ipo
     chown root system /sys/module/lowmemorykiller/parameters/minfree
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
 
-    # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 100
-    write /proc/sys/vm/dirty_writeback_centisecs 300
-    write /proc/sys/vm/dirty_background_ratio  5
+    # Tweak background writeout to coalesce writes and protect eMMC
+    write /proc/sys/vm/dirty_expire_centisecs 2000
+    write /proc/sys/vm/dirty_writeback_centisecs 1000
+    write /proc/sys/vm/dirty_background_ratio  10
+    write /proc/sys/vm/vfs_cache_pressure 50
 
     # Permissions for System Server and daemons.
     chown radio system /sys/android_power/state
