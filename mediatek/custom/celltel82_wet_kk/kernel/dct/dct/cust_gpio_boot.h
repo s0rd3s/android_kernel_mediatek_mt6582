@@ -25,10 +25,10 @@
 #define GPIO1_DATAOUT   GPIO_OUT_ZERO
 
 //Configureation for Pin 2
-#define GPIO2_MODE      GPIO_MODE_02
+#define GPIO2_MODE      GPIO_MODE_03
 #define GPIO2_DIR       GPIO_DIR_IN
 #define GPIO2_PULLEN    GPIO_PULL_ENABLE
-#define GPIO2_PULL      GPIO_PULL_DOWN
+#define GPIO2_PULL      GPIO_PULL_UP
 #define GPIO2_DATAOUT   GPIO_OUT_ZERO
 
 //Configureation for Pin 3

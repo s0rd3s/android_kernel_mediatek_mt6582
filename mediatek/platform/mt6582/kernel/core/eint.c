@@ -26,6 +26,8 @@
 #ifdef MD_EINT
 #include <cust_eint.h>
 #include <cust_eint_md1.h>
+#include <cust_gpio_usage.h>
+#include <mach/mt_gpio.h>
 //#include <cust_eint_md2.h>
 
 typedef enum
@@ -1290,6 +1292,12 @@ static void setup_MD_eint(void)
         printk("[EINT] MD1 name = %s\n", md_sim_info[md_sim_counter].name);
         printk("[EINT] MD1 type = %d\n", md_sim_info[md_sim_counter].socket_type);
         md_sim_counter++;
+#if defined(GPIO_SIM1_HOT_PLUG) && defined(GPIO_SIM1_HOT_PLUG_M_MDEINT)
+        mt_set_gpio_mode(GPIO_SIM1_HOT_PLUG, GPIO_SIM1_HOT_PLUG_M_MDEINT);
+        mt_set_gpio_dir(GPIO_SIM1_HOT_PLUG, GPIO_DIR_IN);
+        mt_set_gpio_pull_enable(GPIO_SIM1_HOT_PLUG, GPIO_PULL_ENABLE);
+        mt_set_gpio_pull_select(GPIO_SIM1_HOT_PLUG, GPIO_PULL_UP);
+#endif
 #endif
 #if defined(CUST_EINT_MD1_1_NAME)
         sprintf(md_sim_info[md_sim_counter].name, CUST_EINT_MD1_1_NAME);

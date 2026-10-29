@@ -94,58 +94,7 @@ static int g_accdet_working_in_suspend =0;
 static struct work_struct accdet_eint_work;
 static struct workqueue_struct * accdet_eint_workqueue = NULL;
 
-#if 1 //add for sim hotplug zzf
-extern void mt_eint_unmask(unsigned int line);
-extern void mt_eint_mask(unsigned int line);
-extern void mt_eint_set_polarity(unsigned int eint_num, unsigned int pol);
-extern void mt_eint_set_hw_debounce(unsigned int eint_num, unsigned int ms);
-extern unsigned int mt_eint_set_sens(unsigned int eint_num, unsigned int sens);
-extern void mt_eint_registration(unsigned int eint_num, unsigned int flag, 
-              void (EINT_FUNC_PTR) (void), unsigned int is_auto_umask);
 
-
-
-#define KEY_SIMCHANGED 251
-static int current_headset_key = KEY_UNKNOWN; //kaka_12_0116 add
-//add for sim hotplug by zzf
-#define GPIO_SIM_DECTECT GPIO2
-u8 sim_state = 0;
-unsigned int eintnum=2;
-static void sim_eint_func(void)
-{
-	int ret=0;
-
-	mt_eint_mask(eintnum); 
-	printk("huangyisong sim_eint_func start\n");
-	sim_state = !sim_state;
-	mt_eint_set_polarity(eintnum, sim_state);
-	mt_eint_unmask(eintnum); 
-
-	ACCDET_DEBUG("[Accdet] SIM status change!\n");
-	current_headset_key = KEY_SIMCHANGED;//KEY_HEADSETHOOK;//KEY_SIMCHANGED; 
-	input_report_key(kpd_accdet_dev, current_headset_key, 1);
-	input_report_key(kpd_accdet_dev, current_headset_key, 0);
-	input_sync(kpd_accdet_dev);
-}
-
-
-static inline int sim_setup_eint(void)
-{
-	printk("sim_setup_eint start\n");
-	printk("<6>sim_setup_eint start\n");
-	mt_set_gpio_mode(GPIO_SIM_DECTECT, GPIO_MODE_03);
-	mt_set_gpio_dir(GPIO_SIM_DECTECT, GPIO_DIR_IN);
-	mt_set_gpio_pull_enable(GPIO_SIM_DECTECT, GPIO_PULL_UP); //To disable GPIO PULL.
-	
-	mt_eint_set_sens(eintnum, 1);//0); //change CUST_EINT_EDGE_SENSITIVE to CUST_EINT_LEVEL_SENSITIVE
-
-	mt_eint_set_hw_debounce(eintnum, 100);//Enable HW DEBOUNCE
-	mt_eint_registration(eintnum, 1, sim_eint_func, 0);  
-	mt_eint_unmask(eintnum);  
-
-    return 0;	
-}
-#endif
 
 
 static inline void accdet_init(void);
@@ -1700,7 +1649,6 @@ int mt_accdet_probe(void)
     __set_bit(KEY_STOPCD, kpd_accdet_dev->keybit);
 	__set_bit(KEY_VOLUMEDOWN, kpd_accdet_dev->keybit);
     __set_bit(KEY_VOLUMEUP, kpd_accdet_dev->keybit);
-	__set_bit(KEY_SIMCHANGED, kpd_accdet_dev->keybit);//add for sim hotplug zzf
 	
 	kpd_accdet_dev->id.bustype = BUS_HOST;
 	kpd_accdet_dev->name = "ACCDET";
@@ -1779,8 +1727,7 @@ int mt_accdet_probe(void)
 		ACCDET_DEBUG("ACCDET use in 1.9V mode!! \n");
 		accdet_init();   
 		queue_work(accdet_workqueue, &accdet_work); //schedule a work for the first detection					
-		//add for sim hotplug by zzf
-		sim_setup_eint();
+
 		#ifdef ACCDET_EINT
 
           accdet_eint_workqueue = create_singlethread_workqueue("accdet_eint");
