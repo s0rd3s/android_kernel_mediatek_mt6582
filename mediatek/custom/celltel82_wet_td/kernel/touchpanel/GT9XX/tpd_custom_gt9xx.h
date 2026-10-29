@@ -89,6 +89,8 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #define GTP_CHANGE_X2Y        0				//set for se1
 #define GTP_ESD_PROTECT       0
 #define GTP_CREATE_WR_NODE    1
+#define GTP_SLIDE_WAKEUP      1
+#define GTP_DBL_CLK_WAKEUP    1
 #define GUP_USE_HEADER_FILE   0
 #define GTP_FW_DOWNLOAD       0       //update FW to TP SRAM
 //#define GTP_FORCE_UPDATE_FW

@@ -137,7 +137,8 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #define GTP_CHANGE_X2Y        1
 #define GTP_ESD_PROTECT       0 
 #define GTP_CREATE_WR_NODE    1              
-#define GTP_SLIDE_WAKEUP      0      
+#define GTP_SLIDE_WAKEUP      1      
+#define GTP_DBL_CLK_WAKEUP    1
 #define GTP_CHARGER_SWITCH    0       // charger plugin & plugout detect
 #define GTP_WITH_PEN          0       // pen/stylus support
 #define TPD_PROXIMITY
@@ -148,6 +149,9 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #define GTP_DEBUG_ON          0
 #define GTP_DEBUG_ARRAY_ON    0
 #define GTP_DEBUG_FUNC_ON     0
+#ifndef GTP_DEBUG_ENABLED
+#define GTP_DEBUG_ENABLED     0
+#endif
 
 //***************************PART2:TODO define**********************************
 //STEP_1(REQUIRED):Change config table.
@@ -164,7 +168,7 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 // The predefined one is just a sample config, which is not suitable for your tp in most cases.
 //OF
 #define CTP_CFG_GROUP1 {\
-	0x45,0x00,0x04,0x58,0x02,0x0A,0x3C,0x48,\
+	0x45,0x00,0x04,0x58,0x02,0x0A,0x3D,0x48,\
 	0x03,0x08,0x0F,0x08,0x50,0x2D,0x03,0x05,\
 	0x00,0x00,0x00,0x00,0x66,0x23,0x04,0x15,\
 	0x15,0x15,0x14,0x87,0x07,0xCC,0x29,0x1F,\
@@ -213,7 +217,7 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 // TODO: define your config for Sensor_ID == 5 here, if needed
 //AVC
 #define CTP_CFG_GROUP6 {\
-	0x45,0x00,0x04,0x58,0x02,0x0A,0x3C,0x48,\
+	0x45,0x00,0x04,0x58,0x02,0x0A,0x3D,0x48,\
 	0x03,0x08,0x0F,0x08,0x50,0x2D,0x03,0x05,\
 	0x00,0x00,0x00,0x00,0x22,0x22,0x04,0x18,\
 	0x18,0x14,0x14,0x87,0x07,0xCC,0x29,0x1F,\
@@ -350,16 +354,22 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #endif
 
 //Log define
-#define GTP_INFO(fmt,arg...)           printk("<<-GTP-INFO->> "fmt"\n",##arg)
+#define GTP_INFO(fmt,arg...)           do{\
+                                         if(GTP_DEBUG_ENABLED)\
+                                         printk("<<-GTP-INFO->> "fmt"\n",##arg);\
+                                       }while(0)
+
 #define GTP_ERROR(fmt,arg...)          printk("<<-GTP-ERROR->> "fmt"\n",##arg)
+
 #define GTP_DEBUG(fmt,arg...)          do{\
-                                         if(GTP_DEBUG_ON)\
+                                         if(GTP_DEBUG_ENABLED)\
                                          printk("<<-GTP-DEBUG->> [%d]"fmt"\n",__LINE__, ##arg);\
                                        }while(0)
+
 #define GTP_DEBUG_ARRAY(array, num)    do{\
                                          s32 i;\
                                          u8* a = array;\
-                                         if(GTP_DEBUG_ARRAY_ON)\
+                                         if(GTP_DEBUG_ENABLED)\
                                          {\
                                             printk("<<-GTP-DEBUG-ARRAY->>\n");\
                                             for (i = 0; i < (num); i++)\
@@ -373,15 +383,11 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
                                             printk("\n");\
                                         }\
                                        }while(0)
+
 #define GTP_DEBUG_FUNC()               do{\
-                                         if(GTP_DEBUG_FUNC_ON)\
+                                         if(GTP_DEBUG_ENABLED)\
                                          printk("<<-GTP-FUNC->> Func:%s@Line:%d\n",__func__,__LINE__);\
                                        }while(0)
-#define GTP_SWAP(x, y)                 do{\
-                                         typeof(x) z = x;\
-                                         x = y;\
-                                         y = z;\
-                                       }while (0)
 
 //****************************PART4:UPDATE define*******************************
 //Error no
